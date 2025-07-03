@@ -33,7 +33,7 @@ That means:
 ## 🚀 Install
 
 ```bash
-go get github.com/yourusername/srand
+go get github.com/skyrocket-qy/srand
 ```
 
 ## 👨‍💻 Example
