@@ -1,6 +1,9 @@
-# 🔐 srand — Secure Random Utilities for Go
+<p align="center">
+  <img src="assets/icon.svg" alt="srand icon" width="128">
+</p>
+<h1 align="center">🔐 srand — Secure Random Utilities for Go</h1>
 
-`srand` is a lightweight Go package that provides **crypto-safe random number utilities**.  
+`srand` is a lightweight Go package that provides **crypto-safe random number utilities**.
 Built on top of `crypto/rand`, it's ideal for applications that require **secure, unpredictable randomness**, such as:
 
 - 🧠 Games & Gambling (GLI-compliant RNG)
