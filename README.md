@@ -24,6 +24,7 @@ That means:
 - 🔁 Secure `Shuffle()` — Fisher–Yates shuffle using crypto
 - 🔢 Secure `Perm(n)` — random permutation of integers
 - 🎯 `FromSlice()` — pick a random element from a slice
+- 🔠 `String(n)` — generate a secure random string using the default alphanumeric charset
 - 🔠 `StringFromCharset()` — generate secure random strings from custom charsets
 - 🔢 `Bool()` — secure random true/false
 - 🧱 Predefined charsets: `digits`, `alphanumeric`, `base64`, `hex`, etc.
@@ -62,7 +63,14 @@ fmt.Println("Shuffled:", items)
 ### Random String
 
 ```go
-code, _ := srand.StringFromCharset(8, srand.CharsetAlphaNum)
+token, _ := srand.String(16)
+fmt.Println("Secure Token:", token)
+```
+
+### Random String (from custom charset)
+
+```go
+code, _ := srand.StringFromCharset(8, srand.CharsetDigits)
 fmt.Println("Verification Code:", code)
 ```
 

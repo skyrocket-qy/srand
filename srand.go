@@ -68,19 +68,45 @@ func StringFromCharset(n int, charset string) (string, error) {
 	if n <= 0 {
 		return "", nil
 	}
-	if len(charset) == 0 {
+	charsetLen := len(charset)
+	if charsetLen == 0 {
 		return "", fmt.Errorf("empty charset")
 	}
 
+	// max is the largest multiple of charsetLen that is <= 256
+	// All random bytes >= max will be rejected to avoid modulo bias.
+	max := 256 - (256 % charsetLen)
+
 	b := make([]byte, n)
-	for i := range b {
-		idx, err := Intn(len(charset))
+
+	// To minimize calls to rand.Read, we'll read a larger buffer of random
+	// bytes at once.
+	buffer := make([]byte, n+(n/2)) // Read 1.5x the needed bytes
+
+	b_idx := 0
+	for {
+		_, err := rand.Read(buffer)
 		if err != nil {
 			return "", err
 		}
-		b[i] = charset[idx]
+
+		for _, r_byte := range buffer {
+			// Check if the byte is in the acceptable range
+			if int(r_byte) < max {
+				b[b_idx] = charset[int(r_byte)%charsetLen]
+				b_idx++
+				if b_idx == n {
+					return string(b), nil
+				}
+			}
+		}
 	}
-	return string(b), nil
+}
+
+// String returns a random alphanumeric string of length n.
+// It is a convenience wrapper around StringFromCharset, using CharsetAlphaNum.
+func String(n int) (string, error) {
+	return StringFromCharset(n, CharsetAlphaNum)
 }
 
 func Bytes(n int) ([]byte, error) {
