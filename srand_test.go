@@ -149,3 +149,18 @@ func TestBytes(t *testing.T) {
 		t.Fatalf("Bytes returned wrong length: %d", len(b))
 	}
 }
+
+func TestString(t *testing.T) {
+	s, err := String(16)
+	if err != nil {
+		t.Fatalf("String error: %v", err)
+	}
+	if len(s) != 16 {
+		t.Fatalf("String returned wrong length: %d", len(s))
+	}
+
+	s, err = String(0)
+	if err != nil || s != "" {
+		t.Fatalf("Expected empty string and nil error for String(0), got %q, %v", s, err)
+	}
+}
