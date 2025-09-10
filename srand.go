@@ -2,6 +2,7 @@ package srand
 
 import (
 	"crypto/rand"
+	"encoding/base64"
 	"fmt"
 	"math/big"
 )
@@ -113,4 +114,15 @@ func Bytes(n int) ([]byte, error) {
 	b := make([]byte, n)
 	_, err := rand.Read(b)
 	return b, err
+}
+
+func GenerateRandomToken(n int) (string, error) {
+	tokenBytes := make([]byte, n)
+
+	_, err := rand.Read(tokenBytes)
+	if err != nil {
+		return "", err
+	}
+
+	return base64.URLEncoding.EncodeToString(tokenBytes), nil
 }
