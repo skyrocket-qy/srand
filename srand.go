@@ -116,7 +116,7 @@ func Bytes(n int) ([]byte, error) {
 	return b, err
 }
 
-func GenerateRandomToken(n int) (string, error) {
+func UrlString(n int) (string, error) {
 	tokenBytes := make([]byte, n)
 
 	_, err := rand.Read(tokenBytes)
